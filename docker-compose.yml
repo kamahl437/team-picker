@@ -4,3 +4,11 @@ services:
     build: .
     ports:
       - "3000:3000"
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    volumes:
+      - /data/mongodb/db:/data/db
+    ports:
+      - "27017:27017"
