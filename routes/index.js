@@ -42,6 +42,7 @@ function saveTeam(team, cb) {
 	    if (err) cb(err)
     	var collection = db.collection('team');
     	collection.insert(team, function(err, result) {
+        if(err){cb(err)}
 			response =  { result: "success" };
     	});
 	});
