@@ -22,7 +22,7 @@ router.get('/data/from/db', function(req, res, next) {
   });
 });
 
-router.post('/data/into/db', function(req, res, next) {
+router.post('josh', function(req, res, next) {
   console.log('i am not crazy')
 	// client.connect(uri, function (err, db) {
 	//     if (err) return next(err);
