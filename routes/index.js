@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('josh', function(req, res, next) {
+router.get('/data/from/db', function(req, res, next) {
   client.connect(uri, function (err, db) {
     if (err) return next(err);
     var collection = db.collection('team');
@@ -22,16 +22,15 @@ router.get('josh', function(req, res, next) {
   });
 });
 
-router.post('data/into/db', function(req, res, next) {
-  console.log('i am not crazy')
-	// client.connect(uri, function (err, db) {
-	//     if (err) return next(err);
-  //   	var collection = db.collection('team');
-  //   	collection.insertMany(req.body, function(err, result) {
-	// 		return res.json({ result: "success" });
-  //   	});
-	// });
-});
 
+router.post('data/into/db', function(req, res, next) {
+  client.connect(uri, function(err, db) {
+    if(err) return next(err);
+    var collection = db.collection('team');
+    collection.insertMany(req.body, function(err, result) { 
+      return res.json({result: "success"});
+    });
+  });
+});
 
 module.exports = router;
