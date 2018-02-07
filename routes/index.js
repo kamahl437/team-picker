@@ -23,7 +23,7 @@ router.get('/team/all', function(req, res, next) {
 });
 
 router.get('/team/:teamId', function(req, res, next) {
-  let team = getTeam(req.params.teamId);
+  let team = getTeam(req.params.teamId, next);
   return res.json(team);
 });
 
@@ -31,7 +31,7 @@ router.get('/team/:teamId', function(req, res, next) {
 
 router.post('/team', function(req, res, next) {
   console.log('im in the method!')
-  let response = saveTeam(req.body);
+  let response = saveTeam(req.body, next);
   return res.json(response);
 });
 
