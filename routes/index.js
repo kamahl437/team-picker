@@ -30,29 +30,35 @@ router.get('/team/:teamId', function(req, res, next) {
 
 
 router.post('/team', function(req, res, next) {
+  console.log('im in the method!')
   let response = saveTeam(req.body);
   return res.json(response);
 });
 
-function saveTeam(team) {
+function saveTeam(team, cb) {
+  console.log(team);
+  let response = 'error'
   client.connect(uri, function (err, db) {
-	    if (err) return next(err);
+	    if (err) cb(err)
     	var collection = db.collection('team');
-    	collection.insertMany(team, function(err, result) {
-			return { result: "success" };
+    	collection.insert(team, function(err, result) {
+			response =  { result: "success" };
     	});
 	});
+  return response;
 }
 
-function getTeam(teamIdArg) {
+function getTeam(teamIdArg, cb) {
+  let response = ''
   client.connect(uri, function (err, db) {
-    if (err) return next(err);
+    if (err) return cb(err);
     var collection = db.collection('team');
     collection.find({teamId:teamIdArg}).toArray(function(err, docs) {
-      if (err) return next(err);
-      return docs;
+      if (err) return cb(err);
+      response =  docs;
     });
   });
+  return response;
 }
 
 
