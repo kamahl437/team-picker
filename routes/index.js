@@ -31,13 +31,13 @@ router.get('/team/:teamId', function(req, res, next) {
 
 router.post('/team', function(req, res, next) {
   console.log('im in the method!')
-  let response = saveTeam(req.body, next);
+  var response = saveTeam(req.body, next);
   return res.json(response);
 });
 
 function saveTeam(team, cb) {
   console.log(team);
-  let response = 'error'
+  var response = 'error'
   client.connect(uri, function (err, db) {
 	    if (err) cb(err)
     	var collection = db.collection('team');
@@ -50,7 +50,7 @@ function saveTeam(team, cb) {
 }
 
 function getTeam(teamIdArg, cb) {
-  let response = ''
+  var response = ''
   client.connect(uri, function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
