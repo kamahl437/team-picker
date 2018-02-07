@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/data/from/db', function(req, res, next) {
+router.get('/team/all', function(req, res, next) {
   client.connect(uri, function (err, db) {
     if (err) return next(err);
     var collection = db.collection('team');
@@ -22,15 +22,38 @@ router.get('/data/from/db', function(req, res, next) {
   });
 });
 
-router.post('/data/into/db', function(req, res, next) {
-	client.connect(uri, function (err, db) {
+router.get('/team/:teamId', function(req, res, next) {
+  let team = getTeam(req.params.teamId);
+  return res.json(team);
+});
+
+
+
+router.post('/team', function(req, res, next) {
+  let response = saveTeam(req.body);
+  return res.json(response);
+});
+
+function saveTeam(team) {
+  client.connect(uri, function (err, db) {
 	    if (err) return next(err);
     	var collection = db.collection('team');
-    	collection.insertMany(req.body, function(err, result) {
-			return res.json({ result: "success" });
+    	collection.insertMany(team, function(err, result) {
+			return { result: "success" };
     	});
 	});
-});
+}
+
+function getTeam(teamIdArg) {
+  client.connect(uri, function (err, db) {
+    if (err) return next(err);
+    var collection = db.collection('team');
+    collection.find({teamId:teamIdArg}).toArray(function(err, docs) {
+      if (err) return next(err);
+      return docs;
+    });
+  });
+}
 
 
 module.exports = router;
