@@ -24,6 +24,8 @@ router.get('/team/all', function(req, res, next) {
 
 router.get('/team/:teamId', function(req, res, next) {
   let team = getTeam(req.params.teamId, next);
+  console.log('params');
+  console.log(req.params.teamId);
   return res.json(team);
 });
 
