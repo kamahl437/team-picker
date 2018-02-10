@@ -59,7 +59,7 @@ function getTeam(teamIdArg, cb) {
   return client.connect(uri).then( function (db) {
     //if (err) return cb(err);  I believe if I want this to work just use a catch instead
     var collection = db.collection('team');
-    return collection.find({teamId:parseInt(teamIdArg)}).toArray().then(function(err, docs) {
+    return collection.find({teamId:parseInt(teamIdArg)}).toArray().then(function(docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       //if (err) return cb(err); I believe if I want this to work just use a catch instead
