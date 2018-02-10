@@ -35,6 +35,7 @@ router.post('/team', function(req, res, next) {
   return res.json(response);
 });
 
+// this method works but does not send back a proper response for some strange reason.  It sends error every time
 function saveTeam(team, cb) {
   console.log(team);
   var response = 'error'
@@ -42,6 +43,7 @@ function saveTeam(team, cb) {
 	    if (err) cb(err)
     	var collection = db.collection('team');
     	collection.insert(team, function(err, result) {
+        console.log(result);
         if(err){cb(err)}
 			response =  { result: "success" };
     	});
@@ -49,12 +51,14 @@ function saveTeam(team, cb) {
   return response;
 }
 
+// this method works but does not send back a proper response for some strange reason.  It sends blank every time
 function getTeam(teamIdArg, cb) {
   var response = ''
   client.connect(uri, function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
     collection.find({teamId:teamIdArg}).toArray(function(err, docs) {
+      console.log(docs);
       if (err) return cb(err);
       response =  docs;
     });
