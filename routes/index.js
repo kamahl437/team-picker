@@ -49,8 +49,8 @@ function saveTeam(team, cb) {
         if(err){cb(err)}
 			response =  { result: "success" };
     	});
+  db.close();
 	});
-  db.close()
   return response;
 }
 
@@ -60,20 +60,14 @@ function getTeam(teamIdArg, cb) {
   client.connect(uri, function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
-    collection.find({"teamId":1}).toArray(function(err, docs) {
+    collection.find({teamId:parseInt(teamIdArg)}).toArray(function(err, docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       if (err) return cb(err);
       response =  docs;
     });
-    collection.find({"teamName":"joshFirstTeam"}).toArray(function(err, docs) {
-      console.log(`the docs for ${teamIdArg}`);
-      console.log(docs);
-      if (err) return cb(err);
-      response =  docs;
-    });
+  db.close();
   });
-  db.close()
   return response;
 }
 
