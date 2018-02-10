@@ -65,6 +65,7 @@ function getTeam(teamIdArg, cb) {
       console.log(docs);
       if (err) return cb(err);
       response =  docs;
+    console.log(`response right now is ${response}`)
     });
     console.log(`response right now is ${response}`)
   db.close();
