@@ -56,7 +56,7 @@ function saveTeam(team, cb) {
 
 // this method works but does not send back a proper response for some strange reason.  It sends blank every time
 function getTeam(teamIdArg, cb) {
-  return client.connect(uri, function (err, db) {
+  return client.connect(uri).then( function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
     return collection.find({teamId:parseInt(teamIdArg)}).toArray(function(err, docs) {
