@@ -60,6 +60,7 @@ function getTeam(teamIdArg, cb) {
     if (err) return cb(err);
     var collection = db.collection('team');
     collection.find({teamId:teamIdArg}).toArray(function(err, docs) {
+      console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       if (err) return cb(err);
       response =  docs;
