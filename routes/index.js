@@ -56,13 +56,13 @@ function saveTeam(team, cb) {
 
 // this method works but does not send back a proper response for some strange reason.  It sends blank every time
 function getTeam(teamIdArg, cb) {
-  return client.connect(uri).then( function (err, db) {
-    if (err) return cb(err);
+  return client.connect(uri).then( function (db) {
+    //if (err) return cb(err);  I believe if I want this to work just use a catch instead
     var collection = db.collection('team');
     return collection.find({teamId:parseInt(teamIdArg)}).toArray().then(function(err, docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
-      if (err) return cb(err);
+      //if (err) return cb(err); I believe if I want this to work just use a catch instead
       db.close();
       return docs;
     });
