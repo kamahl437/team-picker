@@ -23,10 +23,10 @@ router.get('/team/all', function(req, res, next) {
 });
 
 router.get('/team/:teamId', function(req, res, next) {
-  let team = getTeam(req.params.teamId, next);
-  console.log('params');
-  console.log(req.params.teamId);
-  return res.json(team);
+  getTeam(req.params.teamId, next).then(function (results) {
+    console.log('in he promise')
+    res.json(results);
+  });
 });
 
 
@@ -56,21 +56,19 @@ function saveTeam(team, cb) {
 
 // this method works but does not send back a proper response for some strange reason.  It sends blank every time
 function getTeam(teamIdArg, cb) {
-  var response = '';
-  client.connect(uri, function (err, db) {
+  return client.connect(uri, function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
-    collection.find({teamId:parseInt(teamIdArg)}).toArray(function(err, docs) {
+    return collection.find({teamId:parseInt(teamIdArg)}).toArray(function(err, docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       if (err) return cb(err);
-      response =  docs;
-    console.log(`response right now is ${response}`)
+      db.close();
+      return docs;
     });
-    console.log(`response right now is ${response}`)
-  db.close();
   });
-  return response;
+  // the reason this doesn't work is because it gets returned before the above
+  //call back resolves... derp derp'
 }
 
 
