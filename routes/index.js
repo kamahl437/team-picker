@@ -50,22 +50,30 @@ function saveTeam(team, cb) {
 			response =  { result: "success" };
     	});
 	});
+  client.close()
   return response;
 }
 
 // this method works but does not send back a proper response for some strange reason.  It sends blank every time
 function getTeam(teamIdArg, cb) {
-  var response = ''
+  var response = '';
   client.connect(uri, function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
-    collection.find({teamId:teamIdArg}).toArray(function(err, docs) {
+    collection.find({"teamId":teamIdArg}).toArray(function(err, docs) {
+      console.log(`the docs for ${teamIdArg}`);
+      console.log(docs);
+      if (err) return cb(err);
+      response =  docs;
+    });
+    collection.find({"teamName":"joshFirstTeam"}).toArray(function(err, docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       if (err) return cb(err);
       response =  docs;
     });
   });
+  client.close()
   return response;
 }
 
