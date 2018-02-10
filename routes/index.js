@@ -59,7 +59,7 @@ function getTeam(teamIdArg, cb) {
   return client.connect(uri).then( function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
-    return collection.find({teamId:parseInt(teamIdArg)}).toArray(function(err, docs) {
+    return collection.find({teamId:parseInt(teamIdArg)}).toArray().then(function(err, docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       if (err) return cb(err);
