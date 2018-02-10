@@ -50,7 +50,7 @@ function saveTeam(team, cb) {
 			response =  { result: "success" };
     	});
 	});
-  client.close()
+  db.close()
   return response;
 }
 
@@ -60,7 +60,7 @@ function getTeam(teamIdArg, cb) {
   client.connect(uri, function (err, db) {
     if (err) return cb(err);
     var collection = db.collection('team');
-    collection.find({"teamId":teamIdArg}).toArray(function(err, docs) {
+    collection.find({"teamId":1}).toArray(function(err, docs) {
       console.log(`the docs for ${teamIdArg}`);
       console.log(docs);
       if (err) return cb(err);
@@ -73,7 +73,7 @@ function getTeam(teamIdArg, cb) {
       response =  docs;
     });
   });
-  client.close()
+  db.close()
   return response;
 }
 
