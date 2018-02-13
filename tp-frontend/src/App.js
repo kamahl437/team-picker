@@ -16,6 +16,11 @@ class App extends Component {
       </div>
     );
   }
+  componentDidMount() {
+        fetch("https://api.example.com/items")
+        .then(res => res.json())
+        .then(res => console.log(res))
+  }
 }
 
 export default App;
