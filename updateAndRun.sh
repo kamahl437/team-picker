@@ -1,3 +1,3 @@
-git fetch;
-docker compose build;
-docker service up;
+git pull;
+docker build;
+docker compose up;
