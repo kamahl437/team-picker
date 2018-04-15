@@ -17,7 +17,7 @@ class App extends Component {
     );
   }
   componentDidMount() {
-        fetch("https://api.example.com/items")
+        fetch("/teams")
         .then(res => res.json())
         .then(res => console.log(res))
   }
