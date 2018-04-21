@@ -3,7 +3,8 @@ ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
 RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
 #Front end npm install, seems to currently be a dns issue for the install.  fix this and uncomment
-ADD /tp-frontend/package.json /tmp/tp-frontend/package.json
+RUN mkdir -p tmp/tp-frontend
+ADD tp-frontend/package.json /tmp/tp-frontend/package.json
 RUN cd /tmp/tp-frontend && npm install
 # //need to do the react build and move it in to the public folder
 WORKDIR /opt/app
