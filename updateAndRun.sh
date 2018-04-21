@@ -1,3 +1,3 @@
 git pull;
-docker build;
+docker build .;
 docker-compose up;
