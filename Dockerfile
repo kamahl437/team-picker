@@ -11,7 +11,7 @@ WORKDIR /opt/app
 ADD . /opt/app
 # same as above
 RUN cp -a /tmp/tp-frontend/node_modules /opt/app/tp-frontend
-RUN cd /opt/app/tp-frontend && npm build
+RUN cd /opt/app/tp-frontend && npm run-script build
 RUN cp -a /opt/app/tp-frontend/build /opt/app/public
 #actual port exposed through vmbox port forwarding is 3001
 EXPOSE 3000
