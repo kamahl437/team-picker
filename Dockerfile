@@ -6,11 +6,11 @@ RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
 RUN mkdir -p tmp/tp-frontend
 ADD tp-frontend/package.json /tmp/tp-frontend/package.json
 RUN cd /tmp/tp-frontend && npm install
+RUN cp -a /tmp/tp-frontend/node_modules /opt/app/tp-frontend
 # //need to do the react build and move it in to the public folder
 WORKDIR /opt/app
 ADD . /opt/app
 # same as above
-RUN cp -a /tmp/tp-frontend/node_modules /opt/app/tp-frontend
 RUN cd /opt/app/tp-frontend && npm run-script build
 RUN cp -a /opt/app/tp-frontend/build /opt/app/public
 #actual port exposed through vmbox port forwarding is 3001
