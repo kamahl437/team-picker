@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    kompose.cmd: C:\Users\Josh\documents\github\kompose.exe convert
+    kompose.cmd: C:\Users\Josh\documents\github\kompose.exe convert -c
     kompose.version: ""
   creationTimestamp: null
   labels:
